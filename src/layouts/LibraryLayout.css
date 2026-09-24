@@ -1,0 +1,17 @@
+.library-layout {
+  min-height: 100vh;
+
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+
+  background-color: var(--background);
+}
+.library-navbar{
+
+}
+.library-main{
+  min-width: 0;
+}
+.library-footer {
+  border: 1px solid var(--border);
+}

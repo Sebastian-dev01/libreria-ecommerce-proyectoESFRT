@@ -1,0 +1,19 @@
+.book-section {
+  padding: 0 0 ;
+
+}
+
+.book-section-header {
+  min-height: 60px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background-color: var(--color-blue-800);
+  & h2{
+      padding: 14px;
+      font-size: 2rem;
+      color: var(--background);
+  }
+}

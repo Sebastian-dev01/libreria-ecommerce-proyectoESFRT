@@ -1,0 +1,55 @@
+.library-navbar {
+    border-bottom: 1px solid black;
+}
+
+.navbar-top {
+  display: grid;
+  grid-template-columns: 1fr minmax(300px, 700px) 1fr;
+
+  align-items: center;
+
+  min-height: 72px;
+  padding: 0 32px;
+
+  background-color: var(--background);
+}
+
+
+.logo{
+    flex-shrink: 0;
+    font-size: 1.5rem;
+    font-weight: bolder;
+}
+
+.navbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  margin-left: auto;
+}
+
+.navbar-actions button {
+  display: grid;
+  place-items: center;
+
+  width: 45px;
+  height: 45px;
+
+  border: 1;
+  background: transparent;
+  font-size: 1.4rem;
+}
+.library-categories{
+    grid-column: 1/4;
+    grid-row: 2;
+    background-color: var(--background);
+
+    & ul {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 4rem;
+
+    }
+}
