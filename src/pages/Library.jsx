@@ -8,23 +8,30 @@ const Library = () => {
   const [books, setBooks] = useState([]);
   const [historyBooks, setHistoryBooks] = useState([]);
   const [artBooks, setArtBooks] = useState([]);
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(true);
+
+
 
 
   useEffect(() => {
     const loadBooks = async () => {
-      const data = await getBooks('javascript')
-      console.log(data)
-      setBooks(data)
+      try {
+        const data = await getBooks()
+        setBooks(data)
+      } catch (err){
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
 
-      const history = await getBooks("subject:history")
-      setHistoryBooks(history)
-
-      const art = await getBooks("subject:art")
-      setArtBooks(art)
     };
 
     loadBooks();
   }, []);
+
+  if (loading) return <p>Cargando libros...</p>;
+  if (error) return <p>Error al cargar libros: {error}</p>;
 
 
   return (
