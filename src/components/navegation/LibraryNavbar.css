@@ -1,3 +1,4 @@
+
 /* =========================
    NAVBAR PRINCIPAL
 ========================= */
@@ -11,9 +12,13 @@
   box-sizing: border-box;
 }
 
-/* =========================
-   FILA SUPERIOR
-========================= */
+.library-navbar *,
+.library-navbar *::before,
+.library-navbar *::after {
+  box-sizing: border-box;
+}
+
+/* Fila superior */
 
 .library-navbar .navbar-top {
   display: grid;
@@ -24,7 +29,6 @@
   width: 100%;
   min-height: 104px;
   padding: 20px 56px;
-  box-sizing: border-box;
   border-bottom: 1px solid #e7ebf0;
 }
 
@@ -76,7 +80,7 @@
   min-width: 0;
 }
 
-/* Favoritos y carrito */
+/* Botones de favoritos y carrito */
 
 .library-navbar .navbar-icon-button,
 .library-navbar .navbar-cart-button {
@@ -87,7 +91,6 @@
   width: 68px;
   height: 68px;
   padding: 0;
-  box-sizing: border-box;
   border: 1px solid #dce2e9;
   border-radius: 50%;
   background: #e9edf2;
@@ -127,18 +130,18 @@
   outline-offset: 3px;
 }
 
-/* Contador del carrito */
+/* Contadores */
 
-.library-navbar .navbar-cart-count {
+.library-navbar .navbar-cart-count,
+.library-navbar .navbar-favorite-count {
   position: absolute;
   top: -5px;
-  right: -4px;
+  right: -5px;
   display: grid;
   place-items: center;
   min-width: 29px;
   height: 29px;
   padding: 0 5px;
-  box-sizing: border-box;
   border: 2px solid #fff;
   border-radius: 50%;
   background: #78bdf2;
@@ -149,9 +152,12 @@
   font-variant-numeric: tabular-nums;
 }
 
-/* =========================
-   CATEGORÍAS
-========================= */
+.library-navbar .navbar-favorite-count {
+  min-width: 29px;
+  padding: 0 5px;
+}
+
+/* Categorías */
 
 .library-navbar .category-nav {
   display: flex;
@@ -162,9 +168,10 @@
   width: 100%;
   min-height: 72px;
   padding: 10px 32px;
-  box-sizing: border-box;
+  overflow-x: auto;
   background: #fff;
   border-bottom: 1px solid #e7ebf0;
+  scrollbar-width: thin;
 }
 
 .library-navbar .category-nav a {
@@ -175,7 +182,6 @@
   justify-content: center;
   min-height: 48px;
   padding: 12px 22px;
-  box-sizing: border-box;
   border: none;
   border-radius: 6px;
   background: transparent;
@@ -207,9 +213,7 @@
   outline-offset: 2px;
 }
 
-/* =========================
-   TABLET
-========================= */
+/* Tablet */
 
 @media (max-width: 1100px) {
   .library-navbar .navbar-top {
@@ -239,7 +243,6 @@
     justify-content: flex-start;
     gap: 6px;
     padding: 10px 20px;
-    overflow-x: auto;
   }
 
   .library-navbar .category-nav a {
@@ -249,9 +252,7 @@
   }
 }
 
-/* =========================
-   MÓVIL
-========================= */
+/* Móvil */
 
 @media (max-width: 700px) {
   .library-navbar .navbar-top {
@@ -288,7 +289,8 @@
     height: 22px;
   }
 
-  .library-navbar .navbar-cart-count {
+  .library-navbar .navbar-cart-count,
+  .library-navbar .navbar-favorite-count {
     top: -5px;
     right: -5px;
     min-width: 24px;
@@ -298,24 +300,18 @@
 
   .library-navbar .category-nav {
     justify-content: flex-start;
-    flex-wrap: nowrap;
     gap: 4px;
     padding: 8px 12px;
-    overflow-x: auto;
-    scrollbar-width: thin;
   }
 
   .library-navbar .category-nav a {
-    flex-shrink: 0;
     min-height: 40px;
     padding: 9px 14px;
     font-size: 14px;
   }
 }
 
-/* =========================
-   ACCESIBILIDAD
-========================= */
+/* Accesibilidad */
 
 @media (prefers-reduced-motion: reduce) {
   .library-navbar .navbar-icon-button,
@@ -323,26 +319,4 @@
   .library-navbar .category-nav a {
     transition: none;
   }
-}
-
-.navbar-icon-button {
-  position: relative;
-}
-
-.navbar-favorite-count {
-  position: absolute;
-  top: -5px;
-  right: -5px;
-  display: grid;
-  place-items: center;
-  min-width: 32px;
-  height: 32px;
-  padding: 0 7px;
-  border: 2px solid #fff;
-  border-radius: 999px;
-  background: #79baf1;
-  color: #17324b;
-  font-size: 14px;
-  font-weight: 700;
-  line-height: 1;
 }
