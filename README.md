@@ -2,20 +2,43 @@
 
 ## Estructura
 
-```text
-src/
-├── assets/
-│   ├── icons/
-│   └── images/
-├── components/
-│   ├── common/
-│   └── books/
-├── data/
-├── layouts/
-├── pages/
-├── styles/
-├── App.jsx
-└── main.jsx
+```
+libreria-ecommerce-proyectoESFRT/
+├── .github/
+│   └── workflows/
+│
+├── backend/
+│   ├── node_modules/
+│   ├── src/
+│   ├── .env
+│   ├── package.json
+│   ├── pnpm-lock.yaml
+│   └── pnpm-workspace.yaml
+│
+├── dist/
+│
+├── node_modules/
+│
+├── public/
+│
+├── src/
+│   ├── api/
+│   ├── assets/
+│   ├── components/
+│   ├── data/
+│   ├── layouts/
+│   ├── pages/
+│   ├── styles/
+│   ├── App.jsx
+│   └── main.jsx
+│
+├── package.json
+├── pnpm-lock.yaml
+├── pnpm-workspace.yaml
+├── index.html
+├── vite.config.js
+└── README.md
+
 ```
 
 - `assets/icons`: iconos propios de la interfaz.
