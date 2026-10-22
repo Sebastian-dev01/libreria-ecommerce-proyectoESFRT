@@ -1,6 +1,22 @@
+
+import { useEffect, useState } from "react";
 import SearchBar from "../search/SearchBar";
 import { Heart, ShoppingCart } from "lucide-react";
 import "./LibraryNavbar.css";
+
+const FAVORITES_KEY = "pacifico-favorites";
+
+const readFavoriteCount = () => {
+  try {
+    const favorites = JSON.parse(
+      localStorage.getItem(FAVORITES_KEY) || "[]"
+    );
+
+    return Array.isArray(favorites) ? favorites.length : 0;
+  } catch {
+    return 0;
+  }
+};
 
 const CATEGORIES = [
   { name: "Humanidades", id: "humanidades" },
@@ -22,7 +38,32 @@ const LibraryNavbar = ({
     window.scrollTo({ top: 0, behavior: "smooth" });
   },
   onOpenCart = () => {},
+  onOpenWishlist = () => {},
 }) => {
+  const [favoriteCount, setFavoriteCount] = useState(readFavoriteCount);
+
+  useEffect(() => {
+    const updateFavorites = () => {
+      setFavoriteCount(readFavoriteCount());
+    };
+
+    window.addEventListener(
+      "pacifico-favorites-updated",
+      updateFavorites
+    );
+
+    window.addEventListener("storage", updateFavorites);
+
+    return () => {
+      window.removeEventListener(
+        "pacifico-favorites-updated",
+        updateFavorites
+      );
+
+      window.removeEventListener("storage", updateFavorites);
+    };
+  }, []);
+
   const handleCategoryClick = (event, id) => {
     event.preventDefault();
 
@@ -63,10 +104,17 @@ const LibraryNavbar = ({
           <button
             type="button"
             className="navbar-icon-button"
-            aria-label="Ver favoritos"
-            title="Favoritos"
+            aria-label={`Lista de deseos: ${favoriteCount} libros`}
+            title="Lista de deseos"
+            onClick={onOpenWishlist}
           >
             <Heart strokeWidth={1.7} />
+
+            {favoriteCount > 0 && (
+              <span className="navbar-favorite-count">
+                {favoriteCount > 99 ? "99+" : favoriteCount}
+              </span>
+            )}
           </button>
 
           <button
@@ -78,9 +126,11 @@ const LibraryNavbar = ({
           >
             <ShoppingCart size={23} strokeWidth={1.8} />
 
-            <span className="navbar-cart-count">
-              {cartCount > 99 ? "99+" : cartCount}
-            </span>
+            {cartCount > 0 && (
+              <span className="navbar-cart-count">
+                {cartCount > 99 ? "99+" : cartCount}
+              </span>
+            )}
           </button>
         </div>
       </div>

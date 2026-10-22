@@ -1,4 +1,6 @@
+
 import { useEffect, useState } from "react";
+import Wishlist from "./pages/Wishlist";
 import LibraryLayout from "./layouts/LibraryLayout";
 import Library from "./pages/Library";
 import BookDetail from "./pages/BookDetail";
@@ -52,8 +54,9 @@ const App = () => {
   const [selectedBook, setSelectedBook] = useState(null);
   const [cart, setCart] = useState(readCart);
   const [showCart, setShowCart] = useState(false);
+  const [showWishlist, setShowWishlist] = useState(false);
 
-  // Cargar libros.
+  // Cargar libros desde el backend.
   useEffect(() => {
     let active = true;
 
@@ -62,7 +65,7 @@ const App = () => {
         const data = await getBooks();
 
         if (active) {
-          setBooks(data);
+          setBooks(Array.isArray(data) ? data : []);
           setError("");
         }
       } catch (err) {
@@ -70,7 +73,9 @@ const App = () => {
           setError(err.message || "Error al cargar los libros");
         }
       } finally {
-        if (active) setLoading(false);
+        if (active) {
+          setLoading(false);
+        }
       }
     };
 
@@ -81,7 +86,7 @@ const App = () => {
     };
   }, []);
 
-  // Guardar el carrito.
+  // Persistir el carrito.
   useEffect(() => {
     try {
       localStorage.setItem("pacifico-cart", JSON.stringify(cart));
@@ -90,7 +95,7 @@ const App = () => {
     }
   }, [cart]);
 
-  // Contar unidades.
+  // Calcular unidades del carrito.
   const cartCount = cart.reduce(
     (total, item) => total + item.quantity,
     0
@@ -105,16 +110,19 @@ const App = () => {
     setSearchTerm(term);
     setSelectedBook(null);
     setShowCart(false);
+    setShowWishlist(false);
 
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  // Abrir el detalle de un libro.
+  // Abrir los detalles de un libro.
   const handleViewBook = (book) => {
     if (!book) return;
 
     setSelectedBook(book);
     setShowCart(false);
+    setShowWishlist(false);
+
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
@@ -129,6 +137,7 @@ const App = () => {
   const handleBackToHome = () => {
     setSelectedBook(null);
     setShowCart(false);
+    setShowWishlist(false);
     resetSearch();
 
     window.history.replaceState(
@@ -140,10 +149,21 @@ const App = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  // Abrir la página del carrito.
+  // Abrir el carrito.
   const handleOpenCart = () => {
     setSelectedBook(null);
     setShowCart(true);
+    setShowWishlist(false);
+
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  // Abrir la lista de deseos.
+  const handleOpenWishlist = () => {
+    setSelectedBook(null);
+    setShowCart(false);
+    setShowWishlist(true);
+
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
@@ -184,7 +204,7 @@ const App = () => {
     });
   };
 
-  // Cambiar la cantidad de un producto.
+  // Actualizar cantidad del carrito.
   const handleUpdateQuantity = (bookId, quantity) => {
     const amount = Math.max(
       1,
@@ -200,7 +220,7 @@ const App = () => {
     );
   };
 
-  // Eliminar un producto.
+  // Eliminar un producto del carrito.
   const handleRemoveFromCart = (bookId) => {
     setCart((currentCart) =>
       currentCart.filter(
@@ -215,6 +235,7 @@ const App = () => {
       cartCount={cartCount}
       onGoHome={handleBackToHome}
       onOpenCart={handleOpenCart}
+      onOpenWishlist={handleOpenWishlist}
       searchInput={searchInput}
       onSearchInputChange={setSearchInput}
       onSearchSubmit={handleSearchSubmit}
@@ -224,7 +245,13 @@ const App = () => {
       onFiltersChange={setFilters}
       onResetSearch={resetSearch}
     >
-      {showCart ? (
+      {showWishlist ? (
+        <Wishlist
+          books={books}
+          onAddToCart={handleAddToCart}
+          onViewDetails={handleViewBook}
+        />
+      ) : showCart ? (
         <Cart
           cart={cart}
           onUpdateQuantity={handleUpdateQuantity}

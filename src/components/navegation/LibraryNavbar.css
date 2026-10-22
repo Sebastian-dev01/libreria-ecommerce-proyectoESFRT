@@ -324,3 +324,25 @@
     transition: none;
   }
 }
+
+.navbar-icon-button {
+  position: relative;
+}
+
+.navbar-favorite-count {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  display: grid;
+  place-items: center;
+  min-width: 32px;
+  height: 32px;
+  padding: 0 7px;
+  border: 2px solid #fff;
+  border-radius: 999px;
+  background: #79baf1;
+  color: #17324b;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1;
+}

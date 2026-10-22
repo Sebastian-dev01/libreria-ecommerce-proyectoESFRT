@@ -1,3 +1,4 @@
+
 .book-card {
   display: flex;
   flex-direction: column;
@@ -7,18 +8,25 @@
   background: transparent;
 }
 
-/* Portada */
+/* Portada y contenedor de acciones */
+
+.book-card-cover-wrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  isolation: isolate;
+}
 
 .book-card-cover-button {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
-  aspect-ratio: 3 / 4;
+  height: 100%;
   padding: 0;
   overflow: hidden;
   border: none;
-  outline: none;
   background: transparent;
   box-shadow: none;
   cursor: pointer;
@@ -30,28 +38,94 @@
   align-items: center;
   justify-content: center;
   width: 100%;
-  aspect-ratio: 3 / 4;
+  height: 100%;
   overflow: hidden;
 }
 
-.book-card-cover-button img,
 .book-card-cover img {
   display: block;
   width: 100%;
   height: 100%;
   object-fit: contain;
   border: none;
-  transition: transform 200ms ease;
+  transition: transform 250ms ease;
 }
 
-.book-card-cover-button:hover img {
+.book-card-cover-wrapper:hover .book-card-cover img {
   transform: scale(1.025);
 }
 
 .book-card-cover-button:focus-visible,
 .book-card-title-button:focus-visible {
   outline: 2px solid var(--color-blue-200);
-  outline-offset: 3px;
+  outline-offset: -3px;
+}
+
+/* Barra flotante de acciones */
+
+.book-card-actions {
+  position: absolute;
+  z-index: 2;
+  left: 50%;
+  bottom: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  width: max-content;
+  max-width: calc(100% - 12px);
+  opacity: 0;
+  visibility: hidden;
+  transform: translate(-50%, 10px);
+  transition:
+    opacity 180ms ease,
+    transform 180ms ease,
+    visibility 180ms ease;
+}
+
+.book-card-cover-wrapper:hover .book-card-actions,
+.book-card-cover-wrapper:focus-within .book-card-actions {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, 0);
+}
+
+.book-card-action {
+  display: grid;
+  place-items: center;
+  flex: 0 0 40px;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 1px solid rgba(20, 25, 35, 0.08);
+  border-radius: 11px;
+  background: #e9edf1;
+  color: #202630;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  cursor: pointer;
+  transition:
+    background-color 160ms ease,
+    color 160ms ease,
+    transform 160ms ease;
+}
+
+.book-card-action:hover {
+  background: #ffffff;
+  transform: translateY(-2px);
+}
+
+.book-card-action:focus-visible {
+  outline: 2px solid var(--color-blue-200);
+  outline-offset: 2px;
+}
+
+.book-card-action.is-favorite {
+  background: #fce7e8;
+  color: #d92d45;
+}
+
+.book-card-action.is-favorite:hover {
+  background: #fbd5d9;
 }
 
 /* Libros sin portada */
@@ -60,12 +134,12 @@
   display: grid;
   place-items: center;
   width: 100%;
-  aspect-ratio: 3 / 4;
+  height: 100%;
   font-size: 0.9rem;
   text-align: center;
 }
 
-/* Etiqueta opcional */
+/* Etiqueta de destacado */
 
 .book-card-badge {
   position: absolute;
@@ -78,7 +152,7 @@
   font-weight: 600;
 }
 
-/* Contenido */
+/* Información del libro */
 
 .book-card-content {
   display: flex;
@@ -88,8 +162,6 @@
   gap: 12px;
   margin: 20px 16px 12px;
 }
-
-/* Título sin el botón gris predeterminado */
 
 .book-card-title {
   margin: 0;
@@ -105,7 +177,6 @@
   width: 100%;
   padding: 0;
   border: none;
-  outline: none;
   background: transparent;
   box-shadow: none;
   color: inherit;
@@ -118,8 +189,6 @@
   color: #244d80;
 }
 
-/* Autor */
-
 .book-card-author {
   margin: 0;
   font-size: 0.9rem;
@@ -127,15 +196,13 @@
   color: #515866;
 }
 
-/* Precio y compra */
+/* Precio */
 
 .book-card-footer {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 12px;
+  align-items: center;
   margin-top: auto;
-  padding-top: 12px;
+  padding-top: 4px;
 }
 
 .book-card-price {
@@ -143,23 +210,14 @@
   font-weight: 700;
 }
 
-.book-card-button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  min-height: 40px;
-  padding: 10px 14px;
-  border: none;
-  border-radius: 30px;
-  background-color: var(--color-blue-200);
-  font-size: 0.85rem;
-  cursor: pointer;
-  transition: background-color 180ms ease;
-}
+/* En pantallas táctiles, mostrar las acciones sin depender del hover */
 
-.book-card-button:hover {
-  background-color: #78aaf5;
+@media (hover: none) {
+  .book-card-actions {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, 0);
+  }
 }
 
 @media (max-width: 600px) {
@@ -175,11 +233,29 @@
   .book-card-price {
     font-size: 16px;
   }
+
+  .book-card-actions {
+    bottom: 8px;
+    gap: 5px;
+  }
+
+  .book-card-action {
+    flex-basis: 34px;
+    width: 34px;
+    height: 34px;
+    border-radius: 9px;
+  }
+
+  .book-card-action svg {
+    width: 17px;
+    height: 17px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .book-card-cover-button img,
-  .book-card-button {
+  .book-card-cover img,
+  .book-card-actions,
+  .book-card-action {
     transition: none;
   }
 }

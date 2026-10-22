@@ -1,0 +1,261 @@
+
+.wishlist-page {
+  width: min(100% - 48px, 1600px);
+  margin: 0 auto;
+  padding: 24px 0 20px;
+  color: #171717;
+}
+
+.wishlist-title {
+  margin: 0 0 14px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(28px, 3vw, 38px);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.wishlist-keep-option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 24px;
+  color: #515866;
+  font-size: 16px;
+  line-height: 1.5;
+  cursor: pointer;
+}
+
+.wishlist-keep-option input {
+  flex: 0 0 auto;
+  width: 16px;
+  height: 16px;
+  margin-top: 4px;
+  accent-color: #79baf1;
+  cursor: pointer;
+}
+
+.wishlist-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  border: 1px solid #dedede;
+}
+
+.wishlist-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.wishlist-image-column {
+  width: 27%;
+}
+
+.wishlist-product-column {
+  width: 38%;
+}
+
+.wishlist-price-column {
+  width: 24%;
+}
+
+.wishlist-action-column {
+  width: 11%;
+}
+
+.wishlist-table tr {
+  background: #fff;
+}
+
+.wishlist-table td {
+  height: 155px;
+  padding: 14px 16px;
+  border-right: 1px solid #dedede;
+  border-bottom: 1px solid #dedede;
+}
+
+.wishlist-table tr:last-child td {
+  border-bottom: none;
+}
+
+.wishlist-table td:last-child {
+  border-right: none;
+}
+
+.wishlist-image-cell {
+  text-align: center;
+}
+
+.wishlist-cover-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 100px;
+  height: 125px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.wishlist-cover-button img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.wishlist-cover-button:focus-visible,
+.wishlist-book-title:focus-visible,
+.wishlist-remove:focus-visible,
+.wishlist-add-button:focus-visible {
+  outline: 2px solid #79baf1;
+  outline-offset: 3px;
+}
+
+.wishlist-product-cell {
+  overflow-wrap: anywhere;
+}
+
+.wishlist-book-title {
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: #1684e8;
+  font-size: 19px;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+}
+
+.wishlist-book-title:hover {
+  color: #095fae;
+}
+
+.wishlist-author {
+  margin: 6px 0;
+  color: #515866;
+  font-size: 14px;
+}
+
+.wishlist-remove {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 8px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: #1684e8;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.wishlist-remove:hover {
+  color: #ba2437;
+}
+
+.wishlist-price-cell {
+  text-align: center;
+  white-space: nowrap;
+  font-size: 19px;
+}
+
+.wishlist-add-cell {
+  text-align: center;
+}
+
+.wishlist-add-button {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  max-width: 145px;
+  min-height: 76px;
+  padding: 12px 10px;
+  border: none;
+  border-radius: 10px;
+  background: #2d2927;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 180ms ease;
+}
+
+.wishlist-add-button:hover {
+  background: #48413d;
+}
+
+.wishlist-message {
+  margin: -10px 0 18px;
+  color: #326c46;
+  font-size: 14px;
+}
+
+.wishlist-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 60px 20px;
+  border: 1px solid #dedede;
+  text-align: center;
+}
+
+.wishlist-empty p {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 25px;
+  font-weight: 700;
+}
+
+.wishlist-empty span {
+  color: #515866;
+  font-size: 15px;
+}
+
+@media (max-width: 760px) {
+  .wishlist-page {
+    width: calc(100% - 28px);
+    padding-top: 20px;
+  }
+
+  .wishlist-keep-option {
+    font-size: 14px;
+  }
+
+  .wishlist-table {
+    min-width: 620px;
+  }
+
+  .wishlist-table td {
+    height: 135px;
+    padding: 12px;
+  }
+
+  .wishlist-cover-button {
+    max-width: 78px;
+    height: 105px;
+  }
+
+  .wishlist-book-title {
+    font-size: 16px;
+  }
+
+  .wishlist-price-cell {
+    font-size: 16px;
+  }
+
+  .wishlist-add-button {
+    min-height: 66px;
+    font-size: 14px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wishlist-add-button {
+    transition: none;
+  }
+}
