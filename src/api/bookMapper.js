@@ -1,4 +1,6 @@
 
+const BASE_URL = import.meta.env.BASE_URL;
+
 export const mapBook = (book) => ({
   id: book.id,
   title: book.title,
@@ -7,6 +9,9 @@ export const mapBook = (book) => ({
   stock: book.stock,
   publisher: book.publisher,
   genre: book.genre,
-  cover: null,
+  category: book.category,
+  cover: book.cover
+    ? `${BASE_URL}${book.cover.replace(/^\/+/, "")}`
+    : null,
   featured: false,
 });

@@ -1,11 +1,20 @@
-import './BookGrid.css'
-import { BookCard } from './BookCard'
+import BookCard from "./BookCard";
+import "./BookGrid.css";
 
-export const BookGrid = ({ books }) => {
+const BookGrid = ({
+  books = [],
+  onViewDetails,
+  onAddToCart,
+}) => {
   return (
     <div className="book-grid">
       {books.map((book) => (
-        <BookCard key={book.id} book={book} />
+        <BookCard
+          key={book.id}
+          book={book}
+          onViewDetails={onViewDetails}
+          onAddToCart={onAddToCart}
+        />
       ))}
     </div>
   );

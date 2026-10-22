@@ -1,27 +1,455 @@
+
+
+.book-search {
+  position: relative;
+  z-index: 100;
+  width: 100%;
+  min-width: 0;
+  font-family: inherit;
+}
+
+
+
 .search-bar {
   display: flex;
   align-items: center;
-  justify-content: center;
-
+  gap: 10px;
   width: 100%;
-  max-width: 600px;
+  min-width: 0;
+  height: 48px;
+  padding: 4px 5px 4px 15px;
+  box-sizing: border-box;
 
-  border: 1px solid var(--color-border);
-  border-radius: 8px;
-  overflow: hidden;
+  border: 1px solid #dce2ea;
+  border-radius: 10px;
+  background: #fff;
+
+  transition:
+    border-color 180ms ease,
+    box-shadow 180ms ease;
 }
+
+.search-bar:focus-within {
+  border-color: #9bb8df;
+  box-shadow: 0 0 0 3px rgb(49 91 142 / 9%);
+}
+
+.search-bar-icon {
+  flex-shrink: 0;
+  color: #657286;
+}
+
+/* Campo de texto */
 
 .search-bar input {
-  flex: 1;
+  display: block;
+  flex: 1 1 auto;
+  width: 0;
   min-width: 0;
-  padding: 12px 16px;
-  border: 1;
-}
-
-.search-bar button {
-  width: 48px;
-  align-self: stretch;
+  height: 100%;
+  margin: 0;
+  padding: 0;
 
   border: 0;
-  background: var(--color-primary);
+  outline: none;
+  border-radius: 0;
+  box-shadow: none;
+  background: transparent;
+
+  color: #202b3c;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: normal;
 }
+
+.search-bar input::placeholder {
+  color: #98a2b2;
+  opacity: 1;
+}
+
+.search-bar input:focus {
+  border: 0;
+  outline: none;
+  box-shadow: none;
+}
+
+/* Evita que estilos globales deformen los botones */
+
+.search-bar button,
+.search-dropdown button {
+  font-family: inherit;
+  line-height: normal;
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+/* =========================
+   BOTÓN BUSCAR
+========================= */
+
+.search-submit-button {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+
+  height: 38px;
+  margin: 0;
+  padding: 0 14px;
+
+  border: 0;
+  border-radius: 7px;
+  background: #202b3c;
+  color: #fff;
+
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  white-space: nowrap;
+
+  cursor: pointer;
+  transition: background-color 160ms ease;
+}
+
+.search-submit-button:hover {
+  background: #34465f;
+}
+
+.search-submit-button:focus-visible {
+  outline: 2px solid #7397c9;
+  outline-offset: 2px;
+}
+
+.search-submit-button svg {
+  flex-shrink: 0;
+}
+
+/* =========================
+   BOTÓN LIMPIAR
+========================= */
+
+.search-clear-button {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+
+  width: 28px;
+  height: 28px;
+  margin: 0;
+  padding: 0;
+
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: #687386;
+
+  cursor: pointer;
+}
+
+.search-clear-button:hover {
+  background: #f0f3f7;
+  color: #202b3c;
+}
+
+/* =========================
+   MENÚ DE SUGERENCIAS
+========================= */
+
+.search-dropdown {
+  position: absolute;
+  z-index: 999;
+  top: calc(100% + 8px);
+  right: 0;
+  left: 0;
+
+  overflow: hidden;
+  box-sizing: border-box;
+
+  border: 1px solid #e2e7ef;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 12px 35px rgb(20 35 55 / 14%);
+}
+
+.search-dropdown-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+
+  padding: 12px 14px 8px;
+
+  color: #788496;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.search-dropdown-heading button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+
+  width: 28px;
+  height: 28px;
+  margin: 0;
+  padding: 0;
+
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: #687386;
+
+  cursor: pointer;
+}
+
+.search-dropdown-heading button:hover {
+  background: #f0f3f7;
+}
+
+/* Lista de resultados */
+
+.search-suggestions {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 6px;
+}
+
+/* Cada libro */
+
+.search-suggestion {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+  padding: 10px 12px;
+  box-sizing: border-box;
+
+  border: 1px solid transparent;
+  border-radius: 9px;
+  background: transparent;
+  color: inherit;
+
+  text-align: left;
+  cursor: pointer;
+
+  transition:
+    background-color 160ms ease,
+    border-color 160ms ease;
+}
+
+.search-suggestion:hover {
+  border-color: #e8edf4;
+  background: #f7f9fc;
+}
+
+.search-suggestion:focus-visible {
+  outline: 2px solid #7397c9;
+  outline-offset: -2px;
+}
+
+/* Portada */
+
+.search-suggestion-cover {
+  position: relative;
+  display: block;
+  flex: 0 0 52px;
+
+  width: 52px;
+  height: 70px;
+  overflow: hidden;
+
+  border: 1px solid rgb(20 35 55 / 8%);
+  border-radius: 6px;
+  background: #f1f3f6;
+  box-shadow: 0 2px 5px rgb(20 35 55 / 7%);
+
+  transition: box-shadow 180ms ease;
+}
+
+.search-suggestion-cover img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.search-suggestion-cover-fallback {
+  position: absolute;
+  inset: 0;
+
+  display: grid;
+  place-items: center;
+
+  background: #e9eef5;
+  color: #60738d;
+}
+
+.search-suggestion-cover-fallback svg {
+  width: 21px;
+  height: 21px;
+  stroke-width: 1.5;
+}
+
+.search-suggestion:hover .search-suggestion-cover {
+  box-shadow: 0 4px 10px rgb(20 35 55 / 12%);
+}
+
+/* Título y autor */
+
+.search-suggestion-info {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+
+  min-width: 0;
+  padding: 2px 0;
+  text-align: left;
+}
+
+.search-suggestion-info strong {
+  display: -webkit-box;
+  overflow: hidden;
+
+  color: #202b3c;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.45;
+  letter-spacing: -0.015em;
+
+  overflow-wrap: anywhere;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+}
+
+.search-suggestion-info > span {
+  display: block;
+  overflow: hidden;
+
+  color: #788496;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.4;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Flecha */
+
+.search-suggestion-arrow {
+  flex: 0 0 auto;
+  color: #a0aaba;
+
+  transition:
+    color 160ms ease,
+    transform 160ms ease;
+}
+
+.search-suggestion:hover .search-suggestion-arrow {
+  color: #315b8e;
+  transform: translate(2px, -2px);
+}
+
+/* Sin coincidencias */
+
+.search-dropdown-hint {
+  margin: 0;
+  padding: 12px 14px;
+
+  color: #687386;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+/* Ver todos */
+
+.search-view-all {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+
+  width: 100%;
+  margin: 0;
+  padding: 12px 14px;
+  box-sizing: border-box;
+
+  border: 0;
+  border-top: 1px solid #edf0f4;
+  border-radius: 0;
+  background: #fafbfd;
+  color: #315b8e;
+
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  text-align: left;
+
+  cursor: pointer;
+}
+
+.search-view-all:hover {
+  background: #f1f5fa;
+}
+
+.search-view-all svg {
+  flex-shrink: 0;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 640px) {
+  .search-bar {
+    height: 44px;
+    padding-left: 10px;
+    gap: 7px;
+  }
+
+  .search-submit-button {
+    width: 38px;
+    height: 34px;
+    padding: 0;
+  }
+
+  .search-submit-button span {
+    display: none;
+  }
+
+  .search-suggestion {
+    gap: 10px;
+    padding: 9px;
+  }
+
+  .search-suggestion-cover {
+    flex-basis: 46px;
+    width: 46px;
+    height: 62px;
+  }
+}
+
+/* Accesibilidad */
+
+@media (prefers-reduced-motion: reduce) {
+  .search-bar,
+  .search-submit-button,
+  .search-suggestion,
+  .search-suggestion-cover,
+  .search-suggestion-arrow {
+    transition: none;
+  }
+}
+```
