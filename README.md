@@ -10,7 +10,6 @@ libreria-ecommerce-proyectoESFRT/
 ├── backend/
 │   ├── node_modules/
 │   ├── src/
-│   ├── .env
 │   ├── package.json
 │   ├── pnpm-lock.yaml
 │   └── pnpm-workspace.yaml
